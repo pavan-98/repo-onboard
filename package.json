@@ -8,8 +8,27 @@
     "bin",
     "README.md"
   ],
-  "keywords": [],
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pavan-98/repo-onboard"
+  },
+  "keywords": [
+    "onboarding",
+    "repo-onboarding",
+    "developer-onboarding",
+    "ai-onboarding",
+    "ai-agents",
+    "cli",
+    "repository-standards",
+    "documentation",
+    "project-setup",
+    "engineering-standards",
+    "copilot",
+    "chatgpt",
+    "gemini",
+    "claude"
+  ],
+  "author": "Pavan Kalyan Neerukonda",
   "license": "MIT",
   "type": "module",
   "bin": {
