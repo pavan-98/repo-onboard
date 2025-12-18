@@ -85,6 +85,10 @@ This command will list missing files and exit with an error code if artifacts ar
    ./bin/repo-onboard.js --help
    ```
 
+## Current Release
+
+[![npm version](https://img.shields.io/npm/v/repo-onboard)](https://www.npmjs.com/package/repo-onboard)
+
 ## License
 
 MIT
