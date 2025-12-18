@@ -1,0 +1,9 @@
+node_modules
+dist
+.DS_Store
+REPO_ONBOARD_PROJECT_BRIEF.md
+test_playground
+test_script.sh
+.env
+.idea
+.vscode
