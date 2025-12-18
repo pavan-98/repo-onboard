@@ -1,6 +1,6 @@
 {
   "name": "repo-onboard",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Standardized human and AI onboarding for repositories",
   "main": "dist/index.js",
   "files": [
