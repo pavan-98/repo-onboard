@@ -1,0 +1,39 @@
+name: repo-onboard check
+description: Fail pull requests when AGENTS.md, Claude/Copilot/Gemini adapters or onboarding docs drift from the repository.
+author: Pavan Kalyan Neerukonda
+branding:
+  icon: check-circle
+  color: green
+
+inputs:
+  version:
+    description: repo-onboard version (npm dist-tag or semver range)
+    default: '2'
+  working-directory:
+    description: Folder to check
+    default: '.'
+  strict:
+    description: Treat warnings as errors
+    default: 'false'
+  args:
+    description: Extra arguments for `repo-onboard check`
+    default: ''
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-node@v7
+      with:
+        node-version: 24
+    - name: repo-onboard check
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      env:
+        RO_VERSION: ${{ inputs.version }}
+        RO_STRICT: ${{ inputs.strict }}
+        RO_ARGS: ${{ inputs.args }}
+      run: |
+        flags=(--format github)
+        if [ "$RO_STRICT" = "true" ]; then flags+=(--strict); fi
+        # shellcheck disable=SC2086
+        npx --yes "repo-onboard@${RO_VERSION}" check "${flags[@]}" $RO_ARGS

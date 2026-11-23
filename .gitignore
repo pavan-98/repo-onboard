@@ -1,9 +1,14 @@
 node_modules
 dist
+coverage
+*.tsbuildinfo
 .DS_Store
+.env
+.env.*
+!.env.example
+.idea
+.vscode/*
+!.vscode/mcp.json
 REPO_ONBOARD_PROJECT_BRIEF.md
 test_playground
 test_script.sh
-.env
-.idea
-.vscode

@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://unpkg.com/repo-onboard@2/schema/repo-onboard.schema.json",
+  "title": "repo-onboard configuration",
+  "description": "Configuration for repo-onboard (https://www.npmjs.com/package/repo-onboard). AGENTS.md is the single source of truth; this file decides which tools get adapters and what goes into generated sections.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "version": { "const": 2, "description": "Config format version." },
+    "name": { "type": "string", "description": "Project name, when it cannot be read from a manifest." },
+    "targets": {
+      "type": "array",
+      "description": "AI tools to generate adapters for. AGENTS.md is always generated.",
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "claude",
+          "codex",
+          "copilot",
+          "gemini",
+          "cursor",
+          "windsurf",
+          "cline",
+          "junie",
+          "kiro",
+          "aider"
+        ]
+      }
+    },
+    "docs": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Generate CONTRIBUTING, ONBOARDING, ARCHITECTURE, ADRs, SECURITY and a PR template."
+        },
+        "dir": { "type": "string", "default": "docs", "description": "Relative folder for human docs." }
+      }
+    },
+    "skills": {
+      "type": "array",
+      "description": "Agent Skills in .agents/skills. Built-in: repo-onboard, run-checks, add-adr. Other names must exist as .agents/skills/<name>/SKILL.md.",
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "maxLength": 64 }
+    },
+    "nested": {
+      "type": "boolean",
+      "description": "Generate AGENTS.md and CLAUDE.md in each workspace package."
+    },
+    "boundaries": {
+      "type": "object",
+      "description": "Rendered into the Boundaries section of AGENTS.md.",
+      "additionalProperties": false,
+      "properties": {
+        "always": { "type": "array", "items": { "type": "string" } },
+        "askFirst": { "type": "array", "items": { "type": "string" } },
+        "never": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "mcpServers": {
+      "type": "object",
+      "description": "MCP servers written to every enabled tool's config (.mcp.json, .vscode/mcp.json, .gemini/settings.json, .cursor/mcp.json, .codex/config.toml). Reference secrets as ${env:VAR}; never inline them.",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "command": { "type": "string" },
+          "args": { "type": "array", "items": { "type": "string" } },
+          "env": { "type": "object", "additionalProperties": { "type": "string" } },
+          "url": { "type": "string", "format": "uri" },
+          "headers": { "type": "object", "additionalProperties": { "type": "string" } }
+        },
+        "oneOf": [{ "required": ["command"] }, { "required": ["url"] }]
+      }
+    },
+    "ignore": {
+      "type": "array",
+      "description": "Top-level folders to leave out of the repository map.",
+      "items": { "type": "string" }
+    }
+  }
+}

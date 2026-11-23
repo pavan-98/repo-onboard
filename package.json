@@ -1,55 +1,88 @@
 {
   "name": "repo-onboard",
-  "version": "1.0.2",
-  "description": "Standardized human and AI onboarding for repositories",
-  "main": "dist/index.js",
-  "files": [
-    "dist",
-    "bin",
-    "README.md",
-    "LICENSE"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/pavan-98/repo-onboard"
-  },
-  "keywords": [
-    "onboarding",
-    "repo-onboarding",
-    "developer-onboarding",
-    "ai-onboarding",
-    "ai-agents",
-    "cli",
-    "repository-standards",
-    "documentation",
-    "project-setup",
-    "engineering-standards",
-    "copilot",
-    "chatgpt",
-    "gemini",
-    "claude"
-  ],
-  "author": "Pavan Kalyan Neerukonda",
-  "license": "MIT",
+  "version": "2.0.0",
+  "description": "One source of truth for every AI coding agent and every new teammate: generates AGENTS.md plus Claude, Codex, Copilot and Gemini adapters from your real repo, and keeps them in sync.",
   "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./schema.json": "./schema/repo-onboard.schema.json",
+    "./package.json": "./package.json"
+  },
   "bin": {
     "repo-onboard": "./bin/repo-onboard.js"
   },
+  "files": [
+    "dist",
+    "bin",
+    "schema",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=22.12"
+  },
   "scripts": {
-    "build": "tsc && cp README.md dist/",
-    "dev": "tsc -w",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc -p tsconfig.build.json",
+    "dev": "tsc -p tsconfig.build.json -w",
+    "typecheck": "tsc --noEmit",
+    "lint": "biome check .",
+    "format": "biome check --write .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "selfcheck": "node bin/repo-onboard.js check",
+    "prepublishOnly": "npm run lint && npm run typecheck && npm test && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pavan-98/repo-onboard.git"
+  },
+  "homepage": "https://github.com/pavan-98/repo-onboard#readme",
+  "bugs": "https://github.com/pavan-98/repo-onboard/issues",
+  "keywords": [
+    "agents.md",
+    "agents-md",
+    "claude-code",
+    "claude-md",
+    "codex",
+    "github-copilot",
+    "copilot-instructions",
+    "gemini-cli",
+    "cursor",
+    "agent-skills",
+    "skill-md",
+    "mcp",
+    "ai-agents",
+    "onboarding",
+    "developer-onboarding",
+    "documentation",
+    "cli"
+  ],
+  "author": "Pavan Kalyan Neerukonda",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
   },
   "dependencies": {
-    "chalk": "^5.6.2",
-    "commander": "^14.0.2",
-    "fs-extra": "^11.3.3",
-    "inquirer": "^13.1.0"
+    "@clack/prompts": "^1.9.0",
+    "commander": "^15.1.0",
+    "cross-spawn": "^7.0.6",
+    "diff": "^9.0.0",
+    "jsonc-parser": "^3.3.1",
+    "smol-toml": "^1.9.1",
+    "yaml": "^2.9.1"
   },
   "devDependencies": {
-    "@types/fs-extra": "^11.0.4",
-    "@types/inquirer": "^9.0.9",
-    "@types/node": "^25.0.3",
-    "typescript": "^5.9.3"
+    "@biomejs/biome": "^2.6.8",
+    "@types/cross-spawn": "^6.0.6",
+    "@types/node": "^22.20.5",
+    "typescript": "^7.0.2",
+    "vitest": "^5.1.1"
   }
 }

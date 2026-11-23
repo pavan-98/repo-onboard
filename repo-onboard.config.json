@@ -1,0 +1,41 @@
+{
+  "$schema": "https://unpkg.com/repo-onboard@2/schema/repo-onboard.schema.json",
+  "version": 2,
+  "targets": [
+    "claude",
+    "codex",
+    "copilot",
+    "gemini"
+  ],
+  "docs": {
+    "enabled": true,
+    "dir": "docs"
+  },
+  "skills": [
+    "repo-onboard",
+    "run-checks",
+    "add-adr"
+  ],
+  "nested": false,
+  "boundaries": {
+    "always": [
+      "Run the lint, type-check and test commands above before saying a task is done.",
+      "Keep changes small and focused; match the style of the surrounding code.",
+      "Update docs and this file when you change commands, structure or conventions."
+    ],
+    "askFirst": [
+      "Adding, removing or upgrading dependencies.",
+      "Changing CI/CD workflows, release, deployment or infrastructure config.",
+      "Deleting files, renaming public APIs or making large cross-module refactors.",
+      "Changing database schemas or data migrations."
+    ],
+    "never": [
+      "Commit secrets, credentials, tokens or `.env` files.",
+      "Skip, delete or weaken tests to make them pass.",
+      "Force-push to shared branches or rewrite published history.",
+      "Hand-edit generated, vendored or build output (lockfiles, `dist/`, sections between `repo-onboard` markers)."
+    ]
+  },
+  "mcpServers": {},
+  "ignore": []
+}
