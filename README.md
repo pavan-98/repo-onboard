@@ -198,6 +198,17 @@ npm run lint && npm run typecheck && npm test && npm run build
 node bin/repo-onboard.js doctor
 ```
 
+### Releasing (maintainers)
+
+```bash
+npm version minor          # or patch / major: bumps package.json and creates the vX.Y.Z tag
+npm publish                # runs lint, type-check, tests and build first (prepublishOnly)
+git push --follow-tags
+git tag -f v2 && git push -f origin v2   # keeps `uses: pavan-98/repo-onboard@v2` on the latest 2.x
+```
+
+Then create a GitHub release from the new tag, with the CHANGELOG entry as notes.
+
 See [CONTRIBUTING.md](CONTRIBUTING.md), [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) and [AGENTS.md](AGENTS.md).
 This repository is onboarded with its own tool, and CI runs `repo-onboard check` on it.
 

@@ -12,7 +12,7 @@ _Status: **implemented in 2.0.0** · Date: 2026-11-23_
 > - **Node:** the minimum is ≥ 22.12, not ≥ 20. Node 20 reached end-of-life in April 2026, and commander 15 and Vitest 5 require 22.12.
 > - **Build:** plain `tsc` instead of tsdown/tsup. A CLI doesn't need bundling, and this is one less tool.
 > - **Templates:** typed TypeScript render functions in `src/templates/` instead of `.eta` files. Most content is conditional, and this avoids a template-engine dependency.
-> - **Releases:** a hand-written `CHANGELOG.md` and npm trusted publishing triggered by a GitHub Release, instead of Changesets. That suits a single maintainer.
+> - **Releases:** a hand-written `CHANGELOG.md` and a manual `npm publish` from the maintainer's machine, instead of Changesets or a CI release workflow. That suits a single maintainer.
 > - **Drafting:** `draft` is also its own command, not only `init --draft-with`.
 > - **Test fixtures:** built in temporary folders by the tests instead of committed fixture repos. Committed `package.json` files inside the repo would confuse tooling.
 > - **Workspaces:** nested `AGENTS.md` files are generated for JavaScript workspaces only. Python, Rust and Go workspaces are detected as single projects for now.
